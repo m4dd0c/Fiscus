@@ -1,13 +1,13 @@
-"use client";
 import React from "react";
 import { Typewriter } from "@/components/home/Typewriter";
-import { GlowingEffectDemo } from "@/components/home/WhatWeDo";
+import { WhatWeDo } from "@/components/home/WhatWeDo";
+import { Hero } from "@/components/home/Hero";
 
-export default function Hero() {
+export default function Home() {
  return (
   <>
    <Hero />
-   <GlowingEffectDemo />
+   <WhatWeDo />
    <Typewriter />
   </>
  );

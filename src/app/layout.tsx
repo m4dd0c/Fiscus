@@ -1,4 +1,5 @@
 import { type Metadata } from "next";
+import { dark } from "@clerk/themes";
 import {
  ClerkProvider,
  SignInButton,
@@ -31,9 +32,11 @@ export default function RootLayout({
  children: React.ReactNode;
 }>) {
  return (
-  <ClerkProvider>
+  <ClerkProvider appearance={{ baseTheme: dark }}>
    <html lang="en">
-    <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <body
+     className={`dark ${geistSans.variable} ${geistMono.variable} antialiased`}
+    >
      <header className="bg-black z-50 flex justify-between items-center fixed top-0 inset-x-0 p-4 gap-4 h-16">
       <div className="space-x-4 flex items-center">
        <span className="font-bold text-orange-500 text-5xl">₹</span>

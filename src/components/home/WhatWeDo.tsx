@@ -1,9 +1,7 @@
-"use client";
-
 import { Box, Lock, Search, Settings, Sparkles } from "lucide-react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 
-export function GlowingEffectDemo() {
+export function WhatWeDo() {
  return (
   <div className="p-4 space-y-2 m-4">
    <h1 className="heading my-10">What We Do</h1>
