@@ -1,4 +1,4 @@
-"use client"; // Ensure it's a Client Component
+"use client";
 
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "./ThemeContext";
