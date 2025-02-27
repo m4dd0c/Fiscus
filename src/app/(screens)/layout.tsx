@@ -1,8 +1,6 @@
 import { type Metadata } from "next";
-import { dark } from "@clerk/themes";
 import Link from "next/link";
 import {
- ClerkProvider,
  SignInButton,
  SignUpButton,
  SignedIn,
@@ -11,8 +9,7 @@ import {
 } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
-import { StoreProvider } from "@/context/StoreContext";
-import { ThemeProvider } from "@/context/ThemeContext";
+import Providers from "@/context/Providers";
 
 const geistSans = Geist({
  variable: "--font-geist-sans",
@@ -35,33 +32,31 @@ export default function RootLayout({
  children: React.ReactNode;
 }>) {
  return (
-  <ClerkProvider appearance={{ baseTheme: dark }}>
-   <ThemeProvider>
-    <StoreProvider>
-     <html lang="en">
-      <body
-       className={`dark ${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-       <header className="bg-black z-50 flex justify-between items-center fixed top-0 inset-x-0 p-4 gap-4 h-16">
-        <Link className="space-x-4 flex items-center" href="/">
-         <span className="font-bold text-orange-500 text-5xl">₹</span>
-         <span className="font-semibold text-2xl">Fiscus</span>
-        </Link>
-        <div className="space-x-4">
-         <SignedOut>
-          <SignInButton />
-          <SignUpButton />
-         </SignedOut>
-         <SignedIn>
-          <UserButton />
-         </SignedIn>
-        </div>
-       </header>
-       <main className="pt-16">{children}</main>
-      </body>
-     </html>
-    </StoreProvider>
-   </ThemeProvider>
-  </ClerkProvider>
+  <html lang="en">
+   <body
+    className={`dark ${geistSans.variable} ${geistMono.variable} antialiased`}
+   >
+    <Providers>
+     <>
+      <header className="bg-black z-50 flex justify-between items-center fixed top-0 inset-x-0 p-4 gap-4 h-16">
+       <Link className="space-x-4 flex items-center" href="/">
+        <span className="font-bold text-orange-500 text-5xl">₹</span>
+        <span className="font-semibold text-2xl">Fiscus</span>
+       </Link>
+       <div className="space-x-4">
+        <SignedOut>
+         <SignInButton />
+         <SignUpButton />
+        </SignedOut>
+        <SignedIn>
+         <UserButton />
+        </SignedIn>
+       </div>
+      </header>
+      <main className="pt-16">{children}</main>
+     </>
+    </Providers>
+   </body>
+  </html>
  );
 }

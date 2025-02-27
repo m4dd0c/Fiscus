@@ -1,24 +1,36 @@
-import React from "react";
-import Link from "next/link";
+"use client";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-const Page = () => {
+const Transactions = () => {
+ const [transactions, setTransactions] = useState([]);
+
+ useEffect(() => {
+  const fetchTransactions = async () => {
+   try {
+    const response = await axios.get("/api/plaid/transactions");
+    console.log(response.data.transactions, "feeel");
+    setTransactions(response.data.transactions);
+   } catch (error) {
+    console.error("Error fetching transactions:", error);
+   }
+  };
+
+  fetchTransactions();
+ }, []);
+
  return (
-  <>
-   <div>Transactions</div>
-   <Link className="bg-green-500" href="/dashboard">
-    dashboard
-   </Link>
-   <div>
-    <ul>
-     <li>
-      <h1>from: </h1>
-      <h1>to: </h1>
-      <h1>amount: </h1>
+  <div>
+   <h2 className="text-xl font-bold">Transactions</h2>
+   <ul>
+    {transactions.map((tx: any) => (
+     <li key={tx.transaction_id}>
+      {tx.date} - {tx.name} - ${tx.amount}
      </li>
-    </ul>
-   </div>
-  </>
+    ))}
+   </ul>
+  </div>
  );
 };
 
-export default Page;
+export default Transactions;
