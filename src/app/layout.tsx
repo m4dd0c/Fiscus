@@ -34,14 +34,20 @@ export default function RootLayout({
   <ClerkProvider>
    <html lang="en">
     <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-     <header className="flex justify-end items-center fixed top-0 inset-x-0 p-4 gap-4 h-16">
-      <SignedOut>
-       <SignInButton />
-       <SignUpButton />
-      </SignedOut>
-      <SignedIn>
-       <UserButton />
-      </SignedIn>
+     <header className="bg-black z-50 flex justify-between items-center fixed top-0 inset-x-0 p-4 gap-4 h-16">
+      <div className="space-x-4 flex items-center">
+       <span className="font-bold text-orange-500 text-5xl">₹</span>
+       <span className="font-semibold text-2xl">Fiscus</span>
+      </div>
+      <div className="space-x-4">
+       <SignedOut>
+        <SignInButton />
+        <SignUpButton />
+       </SignedOut>
+       <SignedIn>
+        <UserButton />
+       </SignedIn>
+      </div>
      </header>
      {children}
     </body>
