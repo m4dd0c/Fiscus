@@ -101,8 +101,13 @@ async function findFundingSource(customerUrl: string, accountNumber: string) {
   });
 
   const fundingSources = response.data._embedded?.["funding-sources"] || [];
+  console.log(accountNumber);
+  console.log(
+   { self: fundingSources._link.self, customer: fundingSources._link.customer },
+   "fs"
+  );
   const existingSource = fundingSources.find(
-   (fs: any) => fs.accountNumber === accountNumber // Not all APIs return full account numbers for security
+   (fs: any) => fs.accountNumber === accountNumber  // accountNumber is not a key in fs
   );
 
   return existingSource ? existingSource._links.self.href : null;
@@ -119,7 +124,7 @@ export async function addFundingSource(customerUrl: string, account: any) {
    customerUrl,
    account.account
   );
-  console.log("existingFUndingSource", existingFundingSource);
+  console.log("existingFUndingSource", existingFundingSource, customerUrl);
   if (existingFundingSource) {
    console.log("Funding source already exists:", existingFundingSource);
    return existingFundingSource;
