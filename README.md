@@ -45,7 +45,6 @@ cp .env.example .env.local
 
 ```
 DATABASE_URL=your_postgres_url
-NEXTAUTH_SECRET=your_secret
 PLAID_CLIENT_ID=your_client_id
 PLAID_SECRET=your_secret
 TWILIO_ACCOUNT_SID=your_sid
