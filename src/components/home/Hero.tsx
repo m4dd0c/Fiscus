@@ -17,7 +17,7 @@ export async function Hero() {
     automate alerts—all in one place.
    </p>
    <Link
-    className="grid place-items-center w-40 h-10 rounded-xl bg-black border dark:border-white border-transparent text-white text-sm"
+    className="my-3 z-30 cursor-pointer w-40 h-10 rounded-xl grid place-items-center bg-white text-black border border-black text-sm"
     href={redirect}
    >
     Get Started 🚀

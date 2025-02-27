@@ -9,7 +9,7 @@ import {
  UserButton,
 } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 
 const geistSans = Geist({
  variable: "--font-geist-sans",
@@ -52,7 +52,7 @@ export default function RootLayout({
        </SignedIn>
       </div>
      </header>
-     {children}
+     <main className="pt-16">{children}</main>
     </body>
    </html>
   </ClerkProvider>
