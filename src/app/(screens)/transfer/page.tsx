@@ -3,6 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useState } from "react";
+import axios from "axios";
 
 import {
  Select,
@@ -24,17 +26,36 @@ import { Input } from "@/components/ui/input";
 import { transferSchema } from "@/lib/Schema/schema";
 
 function Page() {
+ const [loading, setLoading] = useState(false);
+ const [error, setError] = useState<string | null>(null);
+ const [success, setSuccess] = useState<string | null>(null);
+
  const form = useForm<z.infer<typeof transferSchema>>({
   resolver: zodResolver(transferSchema),
   defaultValues: {
    from: "",
-   to: "",
+   to: "e3z1BZpnBeU3QqGaJdQeiQNxRqx9jaIe7wnQR",
    amount: 0,
   },
  });
 
- const onSubmit = (data: z.infer<typeof transferSchema>) => {
-  console.log("helloworld");
+ const onSubmit = async (data: z.infer<typeof transferSchema>) => {
+  setLoading(true);
+  setError(null);
+  setSuccess(null);
+
+  try {
+   const { data: res } = await axios.post("/api/transfer", data);
+
+   console.log(res);
+
+   setSuccess("Transfer successful!");
+   form.reset();
+  } catch (err: any) {
+   setError(err.message);
+  } finally {
+   setLoading(false);
+  }
  };
 
  return (
@@ -54,14 +75,19 @@ function Page() {
           </SelectTrigger>
          </FormControl>
          <SelectContent>
-          <SelectItem value="m@a1.com">Account 1</SelectItem>
-          <SelectItem value="m@a2.com">Account 2</SelectItem>
+          <SelectItem value="7melnrKknyHQbBvdg7b3iV5dZ8d6vpirMGVPV">
+           Account 1
+          </SelectItem>
+          <SelectItem value="e3z1BZpnBeU3QqGaJdQeiQNxRqx9jaIe7wnQR">
+           Account 2
+          </SelectItem>
          </SelectContent>
         </Select>
         <FormMessage />
        </FormItem>
       )}
      />
+
      <FormField
       control={form.control}
       name="to"
@@ -78,6 +104,7 @@ function Page() {
        </FormItem>
       )}
      />
+
      <FormField
       control={form.control}
       name="amount"
@@ -96,10 +123,16 @@ function Page() {
        </FormItem>
       )}
      />
-     <Button type="submit">Initiate Transfer</Button>
+
+     <Button type="submit" disabled={loading}>
+      {loading ? "Processing..." : "Initiate Transfer"}
+     </Button>
+     {error && <p className="text-red-500">{error}</p>}
+     {success && <p className="text-green-500">{success}</p>}
     </form>
    </Form>
   </div>
  );
 }
+
 export default Page;
